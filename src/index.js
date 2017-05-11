@@ -10,20 +10,15 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
-	try {
+	
 		if (!array[0]) {
 			throw new Error('empty array');
 		}
 		else if ( !(typeof fn == "function") ) {
             throw new Error('fn is not a function');
 		}
-	}
-	catch(e) {
-	console.log(e.message);
-}
 for (var i = 0; i < array.length; i++) {
-	fn1 = fn(array[i]);
-	if (fn1 == false) {
+	if (fn(array[i]) == false) {
 		return false;
 	}
 }
@@ -40,20 +35,16 @@ for (var i = 0; i < array.length; i++) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
-	try {
+	
 		if (!array[0]) {
 			throw new Error('empty array');
 		}
 		else if ( !(typeof fn == "function") ) {
             throw new Error('fn is not a function');
 		}
-	}
-	catch(e) {
-	console.log(e.message);
-}
 for (var i = 0; i < array.length; i++) {
-	fn1 = fn(array[i]);
-	if (fn1 == true) {
+	fn(array[i]);
+	if (fn(array[i]) == true) {
 		return true;
 	}
 }
@@ -86,6 +77,7 @@ function returnBadArguments(fn) {
         a.push(arguments[i]);
 	}
 	}
+	return a;
 }
 
 /*
