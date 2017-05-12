@@ -60,24 +60,18 @@ for (var i = 0; i < array.length; i++) {
  Необходимо выбрасывать исключение в случаях:
  - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn) {
+function returnBadArguments(fn, ...b) {
 	var a = [];
-	try {
-		if (!(typeof fn == "function")) {
-			throw new Error('fn is not a function');
-		}
+	if (!(typeof fn == "function")) {
+		throw new Error('fn is not a function');
 	}
-	catch(e) {
-      a.push(fn);
-	}
-	for (var i = 0; i < arguments.length; i++) {
+	for (var i = 0; i < b.length; i++) {
 	  try {
-	  fn(arguments[i]);
-	}
-	  catch(e) {
-	  	a.push(arguments[i])
+	  	fn(b[i]);
 	  }
-
+	  catch(e) {
+	  	a.push(b[i]);
+	  }
 	}
 	return a;
 }
@@ -97,34 +91,31 @@ function returnBadArguments(fn) {
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number=0) {
-	
-       if (!(typeof number == "number")) {
-       	throw new Error('number is not a number');
-       }
-       for (var i = 0; i < arguments.length; i++) {
-            	if ( !(arguments[i]) ) {
-            		throw new Error('division by 0');
-            	} 
+	if (!(typeof number == "number")) {
+       	    throw new Error('number is not a number');
             }
 	var Ob = {
-		sum: function () {
-            for (var i = 0; i < arguments.length; i++) {
-            	number += arguments[i];
+		sum: function (...b) {
+            for (var i = 0; i < b.length; i++) {
+            	number += b[i];
             }
 		},
-		dif: function () {
-            for (var i = 0; i < arguments.length; i++) {
-            	number -= arguments[i];
+		dif: function (...b) {
+            for (var i = 0; i < b.length; i++) {
+            	number -= b[i];
             }
 		},
-		div: function () {
-            for (var i = 0; i < arguments.length; i++) {
-            	number /= arguments[i];
+		div: function (...b) {
+            for (var i = 0; i < b.length; i++) {
+            	if ( !(b[i]) ) {
+            		throw new Error('division by 0');
+            	} 
+            	number /= b[i];
             }
 		},
-		mul: function () {
-            for (var i = 0; i < arguments.length; i++) {
-            	number *= arguments[i];
+		mul: function (...b) {
+            for (var i = 0; i < b.length; i++) {
+            	number *= b[i];
             }
 		}
 	};
