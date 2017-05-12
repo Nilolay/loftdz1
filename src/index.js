@@ -10,13 +10,12 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
-	
-		if (!array[0]) {
-			throw new Error('empty array');
-		}
-		else if ( !(typeof fn == "function") ) {
-            throw new Error('fn is not a function');
-		}
+if (array[0] == undefined ) {
+	throw new Error('empty array');
+}
+else if ( !(typeof fn == "function") ) {
+          throw new Error('fn is not a function');
+}
 for (var i = 0; i < array.length; i++) {
 	if (fn(array[i]) == false) {
 		return false;
@@ -36,7 +35,7 @@ for (var i = 0; i < array.length; i++) {
  */
 function isSomeTrue(array, fn) {
 	
-		if (!array[0]) {
+		if (array[0] == undefined) {
 			throw new Error('empty array');
 		}
 		else if ( !(typeof fn == "function") ) {
@@ -44,6 +43,8 @@ function isSomeTrue(array, fn) {
 		}
 for (var i = 0; i < array.length; i++) {
 	fn(array[i]);
+}
+for (var i = 0; i < array.length; i++) {
 	if (fn(array[i]) == true) {
 		return true;
 	}
@@ -60,22 +61,23 @@ for (var i = 0; i < array.length; i++) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
+	var a = [];
 	try {
 		if (!(typeof fn == "function")) {
 			throw new Error('fn is not a function');
 		}
 	}
 	catch(e) {
-        console.log(e.message);
+      a.push(fn);
 	}
-	var a = [];
 	for (var i = 0; i < arguments.length; i++) {
-		try {
-        fn(arguments[i]);
+	  try {
+	  fn(arguments[i]);
 	}
-	catch(e) {
-        a.push(arguments[i]);
-	}
+	  catch(e) {
+	  	a.push(arguments[i])
+	  }
+
 	}
 	return a;
 }
@@ -95,7 +97,7 @@ function returnBadArguments(fn) {
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number=0) {
-	try {
+	
        if (!(typeof number == "number")) {
        	throw new Error('number is not a number');
        }
@@ -104,10 +106,6 @@ function calculator(number=0) {
             		throw new Error('division by 0');
             	} 
             }
-	}
-	catch(e) {
-
-	} 
 	var Ob = {
 		sum: function () {
             for (var i = 0; i < arguments.length; i++) {
