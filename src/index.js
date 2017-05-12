@@ -10,7 +10,7 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
-if (array[0] == undefined ) {
+if (array.length == 0) {
 	throw new Error('empty array');
 }
 else if ( !(typeof fn == "function") ) {
@@ -35,7 +35,7 @@ for (var i = 0; i < array.length; i++) {
  */
 function isSomeTrue(array, fn) {
 	
-		if (array[0] == undefined) {
+		if (array.length == 0) {
 			throw new Error('empty array');
 		}
 		else if ( !(typeof fn == "function") ) {
