@@ -10,18 +10,18 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
-if (array.length == 0) {
-	throw new Error('empty array');
-}
-else if ( !(typeof fn == "function") ) {
-          throw new Error('fn is not a function');
-}
-for (var i = 0; i < array.length; i++) {
-	if (fn(array[i]) == false) {
-		return false;
-	}
-}
-	return true;
+    if (array.length == 0) {
+        throw new Error('empty array');
+    } else if ( !(typeof fn == 'function') ) {
+        throw new Error('fn is not a function');
+    }
+    for (var i = 0; i < array.length; i++) {
+        if (fn(array[i]) == false) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /*
@@ -34,22 +34,19 @@ for (var i = 0; i < array.length; i++) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
-	
-		if (array.length == 0) {
-			throw new Error('empty array');
-		}
-		else if ( !(typeof fn == "function") ) {
-            throw new Error('fn is not a function');
-		}
-for (var i = 0; i < array.length; i++) {
-	fn(array[i]);
-}
-for (var i = 0; i < array.length; i++) {
-	if (fn(array[i]) == true) {
-		return true;
-	}
-}
-	return false;
+
+    if (array.length == 0) {
+        throw new Error('empty array');
+    } else if ( !(typeof fn == 'function') ) {
+        throw new Error('fn is not a function');
+    }
+    for (var i = 0; i < array.length; i++) {
+        if (fn(array[i]) == true) {
+            return true;
+        }
+    }
+ 
+    return false;
 }
 
 /*
@@ -61,19 +58,20 @@ for (var i = 0; i < array.length; i++) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...b) {
-	var a = [];
-	if (!(typeof fn == "function")) {
-		throw new Error('fn is not a function');
-	}
-	for (var i = 0; i < b.length; i++) {
-	  try {
-	  	fn(b[i]);
-	  }
-	  catch(e) {
-	  	a.push(b[i]);
-	  }
-	}
-	return a;
+    var a = [];
+
+    if (!(typeof fn == 'function')) {
+        throw new Error('fn is not a function');
+    }
+    for (var i = 0; i < b.length; i++) {
+        try {
+            fn(b[i]);
+        } catch (e) {
+            a.push(b[i]);
+        }
+    }
+
+    return a;
 }
 
 /*
@@ -91,35 +89,44 @@ function returnBadArguments(fn, ...b) {
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number=0) {
-	if (!(typeof number == "number")) {
-       	    throw new Error('number is not a number');
-            }
-	var Ob = {
-		sum: function (...b) {
+    if (!(typeof number == 'number')) {
+        throw new Error('number is not a number');
+    }
+    var Ob = {
+        sum: function (...b) {
             for (var i = 0; i < b.length; i++) {
-            	number += b[i];
+                number += b[i];
             }
-		},
-		dif: function (...b) {
+
+            return number;
+        },
+        dif: function (...b) {
             for (var i = 0; i < b.length; i++) {
-            	number -= b[i];
+                number -= b[i];
             }
-		},
-		div: function (...b) {
+
+            return number;
+        },
+        div: function (...b) {
             for (var i = 0; i < b.length; i++) {
-            	if ( !(b[i]) ) {
-            		throw new Error('division by 0');
-            	} 
-            	number /= b[i];
+                if ( !(b[i]) ) {
+                    throw new Error('division by 0');
+                } 
+                number /= b[i];
             }
-		},
-		mul: function (...b) {
+
+            return number;
+        },
+        mul: function (...b) {
             for (var i = 0; i < b.length; i++) {
-            	number *= b[i];
+                number *= b[i];
             }
-		}
-	};
-	return Ob;
+
+            return number;
+        }
+    };
+
+    return Ob;
 }
 
 export {
