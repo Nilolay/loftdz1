@@ -29,9 +29,9 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial = array[0]) {
 	for (var i = 0; i < array.length; i++) {
-		sum = fn(sum,array[i],i,array);
+		initial = fn(initial,array[i],i,array);
 	}
-	return sum;
+	return initial;
 }
 
 /*
