@@ -6,9 +6,7 @@
  */
 function forEach(array, fn) {
 	for (var i = 0; i < array.length; i++) {
-		function f1 (fn, i, array) {
-		fn(array[i]);
-	}
+		fn(array[i],i,array);
 	}
 }
 
@@ -19,23 +17,21 @@ function forEach(array, fn) {
 function map(array, fn) {
 	var a = [];
 	for (var i = 0; i < array.length; i++) {
-		function f1 (fn, i, array) {
-		  a[i] = fn(array[i]);
+		a[i] = fn(array[i],i,array);
 	}
-	}
+	
+	return a;
 }
 
 /*
  Задача 3:
  Напишите аналог встроенного метода reduce для работы с массивами
  */
-function reduce(array, fn, initial) {
-	var b = 0;
+function reduce(array, fn, initial = array[0]) {
 	for (var i = 0; i < array.length; i++) {
-		function f1 (fn, i, array) {
-		return b += fn(array[i]);
+		sum = fn(sum,array[i],i,array);
 	}
-	}
+	return sum;
 }
 
 /*
@@ -76,8 +72,9 @@ function upperProps(obj) {
 	var keys = Object.keys(obj);
 	var p = [];
 	for (var i = 0; i < keys.length; i++) {
-		p.push = keys[i].toUpperCase();
+		p[i] = keys[i].toUpperCase();
 	}
+	return p;
 }
 
 /*
