@@ -5,6 +5,11 @@
  Напишите аналог встроенного метода forEach для работы с массивами
  */
 function forEach(array, fn) {
+	for (var i = 0; i < array.length; i++) {
+		function f1 (fn, i, array) {
+		fn(array[i]);
+	}
+	}
 }
 
 /*
@@ -12,6 +17,12 @@ function forEach(array, fn) {
  Напишите аналог встроенного метода map для работы с массивами
  */
 function map(array, fn) {
+	var a = [];
+	for (var i = 0; i < array.length; i++) {
+		function f1 (fn, i, array) {
+		  a[i] = fn(array[i]);
+	}
+	}
 }
 
 /*
@@ -19,6 +30,12 @@ function map(array, fn) {
  Напишите аналог встроенного метода reduce для работы с массивами
  */
 function reduce(array, fn, initial) {
+	var b = 0;
+	for (var i = 0; i < array.length; i++) {
+		function f1 (fn, i, array) {
+		return b += fn(array[i]);
+	}
+	}
 }
 
 /*
@@ -27,6 +44,7 @@ function reduce(array, fn, initial) {
  Функция должна удалить указанное свойство из указанного объекта
  */
 function deleteProperty(obj, prop) {
+	delete obj[prop];
 }
 
 /*
@@ -35,6 +53,10 @@ function deleteProperty(obj, prop) {
  Функция должна проверить существует ли укзаанное свойство в указанном объекте
  */
 function hasProperty(obj, prop) {
+	if (obj[prop] != undefined) {
+		return true;
+	}
+	return false;
 }
 
 /*
@@ -42,6 +64,8 @@ function hasProperty(obj, prop) {
  Функция должна получить все перечисляемые свойства объекта и вернуть их в виде массива
  */
 function getEnumProps(obj) {
+	var keys = Object.keys(obj);
+	return keys;
 }
 
 /*
@@ -49,6 +73,11 @@ function getEnumProps(obj) {
  Функция должна перебрать все свойства объекта, преобразовать их имена в верхний регистра и вернуть в виде массива
  */
 function upperProps(obj) {
+	var keys = Object.keys(obj);
+	var p = [];
+	for (var i = 0; i < keys.length; i++) {
+		p.push = keys[i].toUpperCase();
+	}
 }
 
 /*
