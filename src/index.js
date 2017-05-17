@@ -87,10 +87,10 @@ function upperProps(obj) {
  Задача 8 *:
  Напишите аналог встроенного метода slice для работы с массивами
  */
-function slice(array, from, to) {
+function slice(array, from = 0, to = array.length) {
 	var a = [];
-	for (var i = from; i < to; i++) {
-		a.push(array[i]);
+	for ( ; from < to; from++) {
+		a.push(array[from]);
 	}
 	return a;
 }
