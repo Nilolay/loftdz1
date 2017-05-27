@@ -8,7 +8,7 @@
  */
 function createDivWithText(text) {
 var b = document.createElement('div');
- b.innerText(text);
+ b.textContent = text;
  return b;
 }
 
@@ -31,8 +31,7 @@ function createAWithHref(hrefValue) {
  * @param {Element} where - куда вставлять
  */
 function prepend(what, where) {
-	var c = where.children[0];
-	where.insertBefore( what, c);
+	where.insertBefore( what, where.firstChild );
 }
 
 /**
@@ -52,10 +51,10 @@ function prepend(what, where) {
 function findAllPSiblings(where) {
 	var a = [];
 	for (var i = 0; i < where.children.length; i++) {
-		if (where.children[i].nextElementSibiling == 'p') {
+        
+		if ( where.children[i+1] && where.children[i+1].tagName === 'P') {
 		a.push(where.children[i]); 
-	}
-		
+	} 
 	}
 	return a;
 }
@@ -90,7 +89,7 @@ function findError(where) {
  * должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
-	for (var i = 0; i < where.chilNodes.length; i++) {
+	for (var i = 0; i < where.childNodes.length; i++) {
 		if (where.childNodes[i].nodeType == 3) { 
           where.removeChild(where.childNodes[i]);
 	}
@@ -109,14 +108,16 @@ function deleteTextNodes(where) {
  * должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
-	for (var i = 0; i < where.chilNodes.length; i++) {
-		if (where.childNodes[i].nodeType == 3) { 
-          where.removeChild(where.childNodes[i]);
+		for (let i of where.childNodes) {
+			if (i.nodeType == 3) { 
+          where.removeChild(i);
 	    }
-		else if (where.childNodes[i].nodeType == 1) {
-			deleteTextNodesRecursive(where.childNodes[i]);
+	    }
+	    for (let i of where.childNodes) {
+		 if (i.nodeType == 1) {
+			deleteTextNodesRecursive(i);	
 		}
-	}
+		}
 }
 
 /**
@@ -142,6 +143,19 @@ function deleteTextNodesRecursive(where) {
  * }
  */
 function collectDOMStat(root) {
+	var st = {
+		tags: 0,
+		classes: 0,
+		texts: 0
+	};
+	
+	for (var i = 0; i < root.childNodes.length; i++) {
+		if (root.childNodes[i] == 3) {
+			st.texts = st.texts + 1;
+		}
+	}
+	
+	return st;
 }
 
 /**
