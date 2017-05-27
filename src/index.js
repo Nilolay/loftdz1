@@ -58,7 +58,7 @@ function findAllPSiblings(where) {
     for (var i = 0; i < where.children.length; i++) {
         
         if ( where.children[i+1] && where.children[i+1].tagName === 'P') {
-        a.push(where.children[i]); 
+            a.push(where.children[i]); 
         } 
     }
 
@@ -78,7 +78,7 @@ function findError(where) {
 
     for (var i = 0; i < where.children.length; i++) {
         a.push(where.children[i].textContent); 
-	}
+    }
 
     return a;
 }
@@ -99,7 +99,7 @@ function findError(where) {
 function deleteTextNodes(where) {
     for (var i = 0; i < where.childNodes.length; i++) {
         if (where.childNodes[i].nodeType == 3) { 
-        where.removeChild(where.childNodes[i]);
+            where.removeChild(where.childNodes[i]);
         }
     }
 }
@@ -117,12 +117,12 @@ function deleteTextNodes(where) {
 function deleteTextNodesRecursive(where) {
     for (let i of where.childNodes) {
         if (i.nodeType == 3) { 
-        where.removeChild(i);
+            where.removeChild(i);
         }
     }
     for (let i of where.childNodes) {
         if (i.nodeType == 1) {
-        deleteTextNodesRecursive(i);	
+            deleteTextNodesRecursive(i);	
         }
     }
 }
@@ -151,14 +151,14 @@ function deleteTextNodesRecursive(where) {
  */
 function collectDOMStat(root) {
     var st = {
-		tags: 0,
-		classes: 0,
-		texts: 0
+        tags: 0,
+        classes: 0,
+        texts: 0
     };
 
     for (var i = 0; i < root.childNodes.length; i++) {
         if (root.childNodes[i] == 3) {
-        st.texts = st.texts + 1;
+            st.texts = st.texts + 1;
         }
     }
 
