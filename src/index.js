@@ -41,7 +41,10 @@ function skipDefault(eventName, target) {
  * @param {Element} target - элемент, на который нужно добавить обработчик
  */
 function emulateClick(target) {
-    target.addEventListener("click", function fn2() {} );
+    var event = new Event('click');
+
+    target.addEventListener('click', function () { }, false );
+    target.dispatchEvent(event);
 }
 
 /**
@@ -52,8 +55,8 @@ function emulateClick(target) {
  * @param {function} fn - функция, которую нужно вызвать при клике на элемент BUTTON внутри target
  */
 function delegate(target, fn) {
-    target.addEventListener("click", function fn1(e) {
-        if (e.target.tagName == "BUTTON") {
+    target.addEventListener('click', function fn1(e) {
+        if (e.target.tagName == 'BUTTON') {
             fn();
         }
     } );
