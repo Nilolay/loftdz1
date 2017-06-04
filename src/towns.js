@@ -88,7 +88,18 @@ loadingBlock.textContent = "Загрузка...";
 filterBlock.style.display = 'none';
 var u = loadTowns();
 var h;
-u.then(function(value) { h = value; } );
+u.then( function(value) { 
+	h = value; 
+}, 
+function() { 
+	var c = document.createElement('button');
+	c.textContent = "Повторить";
+    loadingBlock.taxtContent = "Не удалось загрузить города";
+    loadingBlock.appendChild(c);
+    c.addEventListener('click', function(){
+    	loadTowns();
+    })
+} );
 u.then(function() { 
         loadingBlock.style.display = 'none';
         filterBlock.style.display = 'block';
