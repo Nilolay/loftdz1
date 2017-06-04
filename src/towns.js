@@ -51,8 +51,12 @@ function loadTowns() {
          return 1; 
          } 
          return 0; 
-         }) 
+         })
+         if(xhr.status < 400) { 
          resolve(s);
+         } else {
+            reject();
+         }
          });
 	});
 }
