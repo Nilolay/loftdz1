@@ -73,7 +73,7 @@ function loadTowns() {
 function isMatching(full, chunk) {
     var fu = full.toLowerCase();
     var ch = chunk.toLowerCase();
-    if (~fu.indexOf(ch)) {
+    if (fu.indexOf(ch)+1) {
       return true;
      } 
      return false;
@@ -84,15 +84,20 @@ let filterBlock = homeworkContainer.querySelector('#filter-block');
 let filterInput = homeworkContainer.querySelector('#filter-input');
 let filterResult = homeworkContainer.querySelector('#filter-result');
 let townsPromise;
-
+loadingBlock.textContent = "Загрузка...";
+filterBlock.style.display = 'none';
 var u = loadTowns();
 var h;
-u.then(function(value) { h = value; } )
-
+u.then(function(value) { h = value; } );
+u.then(function() { 
+        loadingBlock.style.display = 'none';
+        filterBlock.style.display = 'block';
+    });
 filterInput.addEventListener('keyup', function() {
+    
     for (var i = 0; i < h.length; i++) {
-       if (isMatching(filterInput.value, h[i].name)) {
-        var b = document.createElement('div')
+       if (isMatching(h[i].name, filterInput.value)) {
+        let b = document.createElement('div')
         b.textContent = h[i].name;
         filterResult.appendChild(b);
        }
