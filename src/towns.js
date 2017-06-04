@@ -36,6 +36,25 @@ let homeworkContainer = document.querySelector('#homework-container');
  * @return {Promise<Array<{name: string}>>}
  */
 function loadTowns() {
+	return new Promise(function(resolve,reject) {
+         var xhr = new XMLHttpRequest();
+         xhr.open('GET','https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+         xhr.send();
+         xhr.addEventListener('load', function() {
+         var c = xhr.responseText; 
+         var d = JSON.parse(c); 
+         var s = d.sort(function(a,b) { 
+         if (a['name'] < b['name']) { 
+         return -1; 
+         } 
+         if (a['name'] > b['name']) { 
+         return 1; 
+         } 
+         return 0; 
+         }) 
+         resolve(s);
+         });
+	});
 }
 
 /**
@@ -52,6 +71,12 @@ function loadTowns() {
  * @return {boolean}
  */
 function isMatching(full, chunk) {
+    var fu = full.toLowerCase();
+    var ch = chunk.toLowerCase();
+    if (~fu.indexOf(ch)) {
+      return true;
+     } 
+     return false;
 }
 
 let loadingBlock = homeworkContainer.querySelector('#loading-block');
@@ -60,7 +85,19 @@ let filterInput = homeworkContainer.querySelector('#filter-input');
 let filterResult = homeworkContainer.querySelector('#filter-result');
 let townsPromise;
 
+var u = loadTowns();
+var h;
+u.then(function(value) { h = value; } )
+
 filterInput.addEventListener('keyup', function() {
+    for (var i = 0; i < loadTowns().length; i++) {
+       if (isMatching(filterInput.value, h[i].name)) {
+        var b = document.createElement('div')
+        b.textContent = h[i].name;
+        filterResult.appendChild(b);
+       }
+    }
+    
 });
 
 export {
