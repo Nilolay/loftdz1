@@ -94,15 +94,17 @@ u.then(function() {
         filterBlock.style.display = 'block';
     });
 filterInput.addEventListener('keyup', function() {
-    
+    filterResult.innerHTML = '';
+    if (filterInput.value == '') {
+        return;
+    }
     for (var i = 0; i < h.length; i++) {
        if (isMatching(h[i].name, filterInput.value)) {
-        let b = document.createElement('div')
+        var b = document.createElement('div')
         b.textContent = h[i].name;
         filterResult.appendChild(b);
        }
     }
-    
 });
 
 export {
