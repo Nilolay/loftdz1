@@ -90,7 +90,7 @@ var h;
 u.then(function(value) { h = value; } )
 
 filterInput.addEventListener('keyup', function() {
-    for (var i = 0; i < loadTowns().length; i++) {
+    for (var i = 0; i < h.length; i++) {
        if (isMatching(filterInput.value, h[i].name)) {
         var b = document.createElement('div')
         b.textContent = h[i].name;
