@@ -36,29 +36,32 @@ let homeworkContainer = document.querySelector('#homework-container');
  * @return {Promise<Array<{name: string}>>}
  */
 function loadTowns() {
-	return new Promise(function(resolve,reject) {
-         var xhr = new XMLHttpRequest();
-         xhr.open('GET','https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
-         xhr.send();
-         xhr.addEventListener('load', function() {
-         var c = xhr.responseText; 
-         var d = JSON.parse(c); 
-         var s = d.sort(function(a,b) { 
-         if (a['name'] < b['name']) { 
-         return -1; 
-         } 
-         if (a['name'] > b['name']) { 
-         return 1; 
-         } 
-         return 0; 
-         })
-         if(xhr.status < 400) { 
-         resolve(s);
-         } else {
-            reject();
-         }
-         });
-	});
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+        xhr.send();
+        xhr.addEventListener('load', function() {
+            var c = xhr.responseText; 
+            var d = JSON.parse(c); 
+            var s = d.sort(function(a, b) { 
+                if (a.name < b.name) { 
+                    return -1; 
+                } 
+                if (a.name > b.name) { 
+                    return 1; 
+                } 
+
+                return 0; 
+            })
+
+            if (xhr.status < 400) { 
+                resolve(s);
+            } else {
+                reject();
+            }
+        });
+    });
 }
 
 /**
@@ -77,10 +80,12 @@ function loadTowns() {
 function isMatching(full, chunk) {
     var fu = full.toLowerCase();
     var ch = chunk.toLowerCase();
+
     if (fu.indexOf(ch)+1) {
-      return true;
-     } 
-     return false;
+        return true;
+    } 
+
+    return false;
 }
 
 let loadingBlock = homeworkContainer.querySelector('#loading-block');
@@ -88,37 +93,41 @@ let filterBlock = homeworkContainer.querySelector('#filter-block');
 let filterInput = homeworkContainer.querySelector('#filter-input');
 let filterResult = homeworkContainer.querySelector('#filter-result');
 let townsPromise;
-loadingBlock.textContent = "Загрузка...";
+
+loadingBlock.textContent = 'Загрузка...';
 filterBlock.style.display = 'none';
 var u = loadTowns();
 var h;
+
 u.then( function(value) { 
-	h = value; 
+    h = value; 
 }, 
 function() { 
-	var c = document.createElement('button');
-	c.textContent = "Повторить";
-    loadingBlock.taxtContent = "Не удалось загрузить города";
+    var c = document.createElement('button');
+
+    c.textContent = 'Повторить';
+    loadingBlock.taxtContent = 'Не удалось загрузить города';
     loadingBlock.appendChild(c);
-    c.addEventListener('click', function(){
-    	loadTowns();
+    c.addEventListener('click', function() {
+        loadTowns();
     })
 } );
 u.then(function() { 
-        loadingBlock.style.display = 'none';
-        filterBlock.style.display = 'block';
-    });
+    loadingBlock.style.display = 'none';
+    filterBlock.style.display = 'block';
+});
 filterInput.addEventListener('keyup', function() {
     filterResult.innerHTML = '';
     if (filterInput.value == '') {
         return;
     }
     for (var i = 0; i < h.length; i++) {
-       if (isMatching(h[i].name, filterInput.value)) {
-        var b = document.createElement('div')
-        b.textContent = h[i].name;
-        filterResult.appendChild(b);
-       }
+        if (isMatching(h[i].name, filterInput.value)) {
+            var b = document.createElement('div');
+
+            b.textContent = h[i].name;
+            filterResult.appendChild(b);
+        }
     }
 });
 
