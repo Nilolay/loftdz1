@@ -40,21 +40,50 @@ let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
 
 var tab = document.createElement('table');
+
 listTable.appendChild(tab);
+
+function isMatching(full, chunk) { 
+if (full.indexOf(chunk)+1) { 
+return true; 
+} 
+
+return false; 
+}
+function deleteCookie(name) {
+	var cookie_date = new Date (0);
+	document.cookie = name + '=; expires=' + cookie_date.toGMTString() + ';';
+}
 
 filterNameInput.addEventListener('keyup', function() {
 	var x = document.cookie;
 	var arr = x.split('; ');
+	var filt = [];
+	if (!(filterNameInput.value == '')) {
 	for (var i = 0; i < arr.length; i++) {
-		var b = arr[i].split('=');
+		if (isMatching(arr[i], filterNameInput.value)) {
+			filt.push(arr[i]);
+		} 
+	}
+    } else {
+    	filt = arr;
+    }
+	for (var i = 0; i < filt.length; i++) {
+		var b = filt[i].split('=');
 		var row = document.createElement('tr');
 		tab.appendChild(row);
 		var c1 = document.createElement('td');
 		var c2 = document.createElement('td');
+		var but = document.createElement('button');
 		c1.textContent = b[0];
 		c2.textContent = b[1];
+		but.textContent = 'удалить';
 		row.appendChild(c1);
 		row.appendChild(c2);
+		row.appendChild(but);
+		but.addEventListener('click', function() {
+           deleteCookie(b[0]);
+		});
 	}
 });
 
