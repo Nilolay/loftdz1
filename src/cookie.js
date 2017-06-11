@@ -39,8 +39,25 @@ let addValueInput = homeworkContainer.querySelector('#add-value-input');
 let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
 
+var tab = document.createElement('table');
+listTable.appendChild(tab);
+
 filterNameInput.addEventListener('keyup', function() {
+	var x = document.cookie;
+	var arr = x.split('; ');
+	for (var i = 0; i < arr.length; i++) {
+		var b = arr[i].split('=');
+		var row = document.createElement('tr');
+		tab.appendChild(row);
+		var c1 = document.createElement('td');
+		var c2 = document.createElement('td');
+		c1.textContent = b[0];
+		c2.textContent = b[1];
+		row.appendChild(c1);
+		row.appendChild(c2);
+	}
 });
 
 addButton.addEventListener('click', () => {
+	document.cookie = addNameInput.value + '=' + addValueInput.value + ';' ;
 });
