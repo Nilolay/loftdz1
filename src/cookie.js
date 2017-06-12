@@ -55,18 +55,23 @@ function deleteCookie(name) {
 	document.cookie = name + '=; expires=' + cookie_date.toGMTString() + ';';
 }
 function getList() {
-    if (filterNameInput == '') {
-        return;
-    }
+    // очищаем список
     listTable.innerHTML = '';
+    // получаем массив куки
     var x = document.cookie; 
     var arr = x.split('; '); 
+    // фильтруем согласно введенным значениям
     var filt = [];
+    if ( !(filterNameInput.value) || filterNameInput.value == '') {
+        filt = arr;
+    } else {
     for (var i = 0; i < arr.length; i++) {
         if (isMatching(arr[i], filterNameInput.value)) {
             filt.push(arr[i]);
         } 
     }
+    }
+    // выводим список в таблицу
     for (var i = 0; i < filt.length; i++) { 
     var b = filt[i].split('='); 
     var row = document.createElement('tr'); 
@@ -81,7 +86,9 @@ function getList() {
     row.appendChild(c2); 
     row.appendChild(but); 
     but.addEventListener('click', function() { 
+    // удаляем куки
     deleteCookie(b[0]);
+    // обновляем таблицу
     getList(); 
     }); 
     }
