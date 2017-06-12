@@ -54,42 +54,7 @@ function deleteCookie(name) {
 	var cookie_date = new Date (0);
 	document.cookie = name + '=; expires=' + cookie_date.toGMTString() + ';';
 }
-
-filterNameInput.addEventListener('keyup', function() {
-    if (filterNameInput == '') {
-        return;
-    }
-    listTable.innerHTML = '';
-	var x = document.cookie; 
-    var arr = x.split('; '); 
-	var filt = [];
-	for (var i = 0; i < arr.length; i++) {
-		if (isMatching(arr[i], filterNameInput.value)) {
-			filt.push(arr[i]);
-		} 
-	}
-    for (var i = 0; i < filt.length; i++) { 
-    var b = filt[i].split('='); 
-    var row = document.createElement('tr'); 
-    listTable.appendChild(row); 
-    var c1 = document.createElement('td'); 
-    var c2 = document.createElement('td'); 
-    var but = document.createElement('button'); 
-    c1.textContent = b[0]; 
-    c2.textContent = b[1]; 
-    but.textContent = 'удалить'; 
-    row.appendChild(c1); 
-    row.appendChild(c2); 
-    row.appendChild(but); 
-    but.addEventListener('click', function() { 
-    deleteCookie(b[0]); 
-    }); 
-    }
-	
-});
-
-addButton.addEventListener('click', () => {
-	document.cookie = addNameInput.value + '=' + addValueInput.value + ';' ;
+function getList() {
     if (filterNameInput == '') {
         return;
     }
@@ -116,7 +81,17 @@ addButton.addEventListener('click', () => {
     row.appendChild(c2); 
     row.appendChild(but); 
     but.addEventListener('click', function() { 
-    deleteCookie(b[0]); 
+    deleteCookie(b[0]);
+    getList(); 
     }); 
     }
+
+}
+filterNameInput.addEventListener('keyup', function() {
+    getList();
+});
+
+addButton.addEventListener('click', () => {
+	document.cookie = addNameInput.value + '=' + addValueInput.value + ';' ;
+    getList();
 });
