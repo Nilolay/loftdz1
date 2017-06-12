@@ -41,7 +41,7 @@ let listTable = homeworkContainer.querySelector('#list-table tbody');
 
 var tab = document.createElement('table');
 
-listTable.appendChild(tab);
+//listTable.appendChild(tab);
 
 function isMatching(full, chunk) { 
 if (full.indexOf(chunk)+1) { 
@@ -56,37 +56,67 @@ function deleteCookie(name) {
 }
 
 filterNameInput.addEventListener('keyup', function() {
-	var x = document.cookie;
-	var arr = x.split('; ');
+    if (filterNameInput == '') {
+        return;
+    }
+    listTable.innerHTML = '';
+	var x = document.cookie; 
+    var arr = x.split('; '); 
 	var filt = [];
-	if (!(filterNameInput.value == '')) {
 	for (var i = 0; i < arr.length; i++) {
 		if (isMatching(arr[i], filterNameInput.value)) {
 			filt.push(arr[i]);
 		} 
 	}
-    } else {
-    	filt = arr;
+    for (var i = 0; i < filt.length; i++) { 
+    var b = filt[i].split('='); 
+    var row = document.createElement('tr'); 
+    listTable.appendChild(row); 
+    var c1 = document.createElement('td'); 
+    var c2 = document.createElement('td'); 
+    var but = document.createElement('button'); 
+    c1.textContent = b[0]; 
+    c2.textContent = b[1]; 
+    but.textContent = 'удалить'; 
+    row.appendChild(c1); 
+    row.appendChild(c2); 
+    row.appendChild(but); 
+    but.addEventListener('click', function() { 
+    deleteCookie(b[0]); 
+    }); 
     }
-	for (var i = 0; i < filt.length; i++) {
-		var b = filt[i].split('=');
-		var row = document.createElement('tr');
-		tab.appendChild(row);
-		var c1 = document.createElement('td');
-		var c2 = document.createElement('td');
-		var but = document.createElement('button');
-		c1.textContent = b[0];
-		c2.textContent = b[1];
-		but.textContent = 'удалить';
-		row.appendChild(c1);
-		row.appendChild(c2);
-		row.appendChild(but);
-		but.addEventListener('click', function() {
-           deleteCookie(b[0]);
-		});
-	}
+	
 });
 
 addButton.addEventListener('click', () => {
 	document.cookie = addNameInput.value + '=' + addValueInput.value + ';' ;
+    if (filterNameInput == '') {
+        return;
+    }
+    listTable.innerHTML = '';
+    var x = document.cookie; 
+    var arr = x.split('; '); 
+    var filt = [];
+    for (var i = 0; i < arr.length; i++) {
+        if (isMatching(arr[i], filterNameInput.value)) {
+            filt.push(arr[i]);
+        } 
+    }
+    for (var i = 0; i < filt.length; i++) { 
+    var b = filt[i].split('='); 
+    var row = document.createElement('tr'); 
+    listTable.appendChild(row); 
+    var c1 = document.createElement('td'); 
+    var c2 = document.createElement('td'); 
+    var but = document.createElement('button'); 
+    c1.textContent = b[0]; 
+    c2.textContent = b[1]; 
+    but.textContent = 'удалить'; 
+    row.appendChild(c1); 
+    row.appendChild(c2); 
+    row.appendChild(but); 
+    but.addEventListener('click', function() { 
+    deleteCookie(b[0]); 
+    }); 
+    }
 });
