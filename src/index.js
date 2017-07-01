@@ -19,7 +19,7 @@ new Promise(function(resolve){
             	} else {
             		reject(new Error('Ты не пройдешь!'));
             	}
-            }, 2 | 4 );
+            }, 2);
     	});
     })
     .then(function() {
