@@ -1,3 +1,7 @@
+var friendslist = document.getElementsByClassName('vk-friends')[0];
+var vkinput = document.getElementById('vk-filter');
+var myinput = document.getElementById('my-filter');
+
 new Promise(function(resolve){
 	window.addEventListener('load', function(){
 		resolve();
@@ -32,7 +36,14 @@ new Promise(function(resolve){
     .then(function(response) {
         response.items.forEach(friend => {
             var friendli = document.createElement('li');
+            var photo = new Image();
+            var nameSpan = document.createElement('span');
+            nameSpan.textContent = '${friend.first_name} ${friend.last_name}';
+            photo.src = friend.photo_100;
+            photo.width = '50px'
             friendli.classList.add('friend');
-//            список друзей .appendChild(friendli);
+            friendli.appendChild(photo);
+            friendli.appendChild(nameSpan);
+            friendslist.appendChild(friendli);
         })
     })
