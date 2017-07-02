@@ -53,13 +53,14 @@ ul {
 .vk-friends {
 	float: left;
 	border-right: 1px solid #999;
-	width: 230px;
+	margin-left: 10px;
+	width: 250px;
 	height: 290px;
 	overflow-y: scroll; 
 }
 .selected-friends {
 	float: left;
-	width: 230px;
+	width: 250px;
 	height: 290px;
 	overflow-y: scroll; 
 }
