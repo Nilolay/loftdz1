@@ -2,6 +2,7 @@ var friendslist = document.getElementsByClassName('vk-friends')[0];
 var mylist1 = document.getElementsByClassName('selected-friends')[0];
 var vkinput = document.getElementById('vk-filter');
 var myinput = document.getElementById('my-filter');
+var save = document.getElementById('save');
 var friendlist = [];
 var mylist = [];
 
@@ -108,12 +109,18 @@ new Promise(function(resolve){
         });
     })
     .then(function(response) {
+        if(!(localStorage.data)) {
         response.response.items.forEach(friend => {
         	var b = {};
         	b.name = friend.first_name + ' ' + friend.last_name;
         	b.photo = friend.photo_50;
         	friendlist.push(b);  
         })
+        } else {
+            var load = localStorage.data.split('[разделитель]');
+            friendlist = JSON.parse(load[0]);
+            mylist = JSON.parse(load[1]);
+        }
     })
     .then(function() {
         draw();
@@ -123,4 +130,10 @@ new Promise(function(resolve){
         myinput.addEventListener('keyup', function() { 
             draw(); 
         });	
+        save.addEventListener('click', function() {
+            var s1 = JSON.stringify(friendlist);
+            var s2 = JSON.stringify(mylist);
+            var s3 = s1 + '[разделитель]' + s2;
+            localStorage.data = s3;
+        })
     })
