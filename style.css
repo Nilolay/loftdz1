@@ -79,3 +79,6 @@ ul {
     border: none;
     color: #ffffff;
 }
+.friend img {
+	border-radius: 50%;
+}
