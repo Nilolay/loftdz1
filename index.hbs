@@ -14,8 +14,8 @@
         <input id="my-filter" type="text">
     </form>
     <div class="lists clear">
-    	<ul class="vk-friends"></ul>
-    	<ul class="selected-friends"></ul>
+    	<ul class="vk-friends" ondragenter='return dragEnter(event)' ondrop='return dragDrop(event)' ondragover='return dragOver(event)'></ul>
+    	<ul class="selected-friends" ondragenter='return dragEnter(event)' ondrop='return dragDrop(event)' ondragover='return dragOver(event)'></ul>
     </div>
     <div class="foot">
         <button id="save">Coхранить</button>

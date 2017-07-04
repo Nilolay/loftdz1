@@ -54,13 +54,13 @@ ul {
 	float: left;
 	border-right: 1px solid #999;
 	margin-left: 10px;
-	width: 250px;
+	width: 260px;
 	height: 290px;
 	overflow-y: scroll; 
 }
 .selected-friends {
 	float: left;
-	width: 250px;
+	width: 260px;
 	height: 290px;
 	overflow-y: scroll; 
 }
@@ -78,6 +78,9 @@ ul {
     background-color: #ff8663;
     border: none;
     color: #ffffff;
+}
+.friend {
+	width: 240px;
 }
 .friend img {
 	border-radius: 50%;

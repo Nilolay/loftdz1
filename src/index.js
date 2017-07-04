@@ -1,5 +1,6 @@
 var friendslist = document.getElementsByClassName('vk-friends')[0];
 var mylist1 = document.getElementsByClassName('selected-friends')[0];
+var lists = document.getElementsByClassName('lists')[0];
 var vkinput = document.getElementById('vk-filter');
 var myinput = document.getElementById('my-filter');
 var save = document.getElementById('save');
@@ -18,9 +19,12 @@ function drawVK(namevk, photovk, friendvk) {
     var photo = document.createElement('img');
     var nameSpan = document.createElement('span');
     var addbutton = document.createElement('button');
+    friendli.draggable = 'true';
+    friendli.setAttribute("ondragstart", "return dragStart(event)");
     nameSpan.textContent = namevk;
     photo.src = photovk;
     friendli.classList.add('friend');
+    friendli.id = namevk;
     friendli.appendChild(photo);
     friendli.appendChild(nameSpan);
     friendli.appendChild(addbutton);
@@ -74,6 +78,40 @@ function draw() {
     	    drawVK(friendlist[i].name, friendlist[i].photo, friendlist[i]);
     	}
     }
+}
+
+function dragStart(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('Text', e.target.getAttribute('id'));
+    e.dataTransfer.setDragImage(e.target, 240, 50);
+    return true;
+}
+
+function dragEnter(e) {
+    event.preventDefault();
+    return true;
+}
+
+function dragOver(e) {
+    event.preventDefault();
+}
+
+var mem;
+
+function dragDrop(e) {
+    var data = e.dataTransfer.getData("Text");
+    for (var i = 0; i < friendlist.length; i++) {
+            if (friendlist[i].name == data) {
+                mylist.push(friendlist[i]);
+            }
+            if(friendlist[i].name == data) {
+                friendlist.splice(i, 1);
+            }
+        }
+    draw();
+    console.log(data);
+    e.stopPropagation();
+    return true;
 }
 
 new Promise(function(resolve){
