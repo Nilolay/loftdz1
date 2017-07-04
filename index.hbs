@@ -3,7 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>{{htmlWebpackPlugin.options.title}}</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://vk.com/js/api/openapi.js"  type="text/javascript"></script>
 </head>
 <body>
+<div class="main">
+    <p class="inst">Выберите друзей</p>
+    <form action="" class="filter"> 
+        <input id="vk-filter" type="text">
+        <input id="my-filter" type="text">
+    </form>
+    <div class="lists clear">
+    	<ul class="vk-friends" ondragenter='return dragEnter(event)' ondrop='return dragDrop(event)' ondragover='return dragOver(event)'></ul>
+    	<ul class="selected-friends" ondragenter='return dragEnter(event)' ondrop='return dragDrop(event)' ondragover='return dragOver(event)'></ul>
+    </div>
+    <div class="foot">
+        <button id="save">Coхранить</button>
+    </div>
+</div>
+<script src="src/index.js"></script>	
 </body>
 </html>
